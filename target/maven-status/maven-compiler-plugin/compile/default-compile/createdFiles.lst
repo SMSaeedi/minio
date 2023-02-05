@@ -1,0 +1,4 @@
+com/example/demo/DemoApplication.class
+com/example/demo/MinioConfig.class
+com/example/demo/MinioStorageController.class
+com/example/demo/MinioService.class
