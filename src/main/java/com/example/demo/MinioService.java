@@ -5,12 +5,14 @@ import io.minio.messages.Bucket;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.apache.commons.io.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.UUID;
 
@@ -54,7 +56,7 @@ public class MinioService {
         return content;
     }
 
-    /*public static void main(String[] args) throws IOException {
+ /*   public static void main(String[] args) throws IOException {
         ClassLoader classLoader = MinioService.class.getClassLoader();
         File file = new File(classLoader.getResource("Screenshot.png").getFile());
         byte[] fileContent = Files.readAllBytes(file.toPath());
