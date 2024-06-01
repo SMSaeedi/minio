@@ -9,18 +9,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
 import java.util.List;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class MinioService {
-//    @Autowired
     private final MinioClient minioClient;
+
     @Value("${minio.bucket.name}")
     String defaultBucketName;
 
@@ -40,6 +37,7 @@ public class MinioService {
         String key = UUID.randomUUID() + "_" + name;
 
         InputStream inputStream = new ByteArrayInputStream(content);
+
         minioClient.putObject(defaultBucketName, key, inputStream, content.length, "application/octet-stream");
 
         return key;
@@ -47,10 +45,9 @@ public class MinioService {
 
     @SneakyThrows
     public byte[] downloadFile(String key) {
-        byte[] content = null;
         InputStream obj = minioClient.getObject(defaultBucketName, key);
 
-        content = IOUtils.toByteArray(obj);
+        byte[] content = IOUtils.toByteArray(obj);
         obj.close();
 
         return content;
